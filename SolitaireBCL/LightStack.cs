@@ -35,6 +35,7 @@ namespace SolitaireBCL
 
     public class LightStack<T> : IEnumerable<T>, IDisposable where T : IEquatable<T>
     {
+        #region Properties and variables
         private StackElement<T> current;
         public T Current
         {
@@ -44,9 +45,11 @@ namespace SolitaireBCL
             }
             private set { }
         }
+        #endregion
 
         public int Count { get; private set; }
 
+        #region Constructors
         public LightStack()
         {
         }
@@ -73,7 +76,9 @@ namespace SolitaireBCL
                 Push(element);
             }
         }
+        #endregion
 
+        #region Public methods
         public void Push(T element)
         {
             if (current == null)
@@ -109,16 +114,18 @@ namespace SolitaireBCL
 
         public bool Contains(T desiredElement)
         {
-            foreach (T element in (Stack<T>)GetEnumerator())
+            foreach (T element in (IEnumerable<T>)GetEnumerator())
             {
-                if (element.Equals(desiredElement))
+                if (desiredElement.Equals(element))
                 {
                     return true;
                 }
             }
             return false;
         }
+        #endregion
 
+        #region Implementation of interfaces
         public IEnumerator<T> GetEnumerator()
         {
             StackElement<T> temp = current;
@@ -144,5 +151,6 @@ namespace SolitaireBCL
         {
             throw new NotImplementedException();
         }
+        #endregion
     }
 }

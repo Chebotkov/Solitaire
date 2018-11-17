@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolitaireBCL", "SolitaireBCL\SolitaireBCL.csproj", "{37FBA65E-2610-4350-85DB-3C50D90D2174}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolitaireBCL.Tests", "SolitaireBCL.Tests\SolitaireBCL.Tests.csproj", "{F2C5E52B-610E-402A-86A7-0EE87D874FB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{37FBA65E-2610-4350-85DB-3C50D90D2174}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37FBA65E-2610-4350-85DB-3C50D90D2174}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37FBA65E-2610-4350-85DB-3C50D90D2174}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2C5E52B-610E-402A-86A7-0EE87D874FB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2C5E52B-610E-402A-86A7-0EE87D874FB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2C5E52B-610E-402A-86A7-0EE87D874FB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2C5E52B-610E-402A-86A7-0EE87D874FB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
