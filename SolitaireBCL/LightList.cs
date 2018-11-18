@@ -48,7 +48,7 @@ namespace SolitaireBCL
         {
             get
             {
-                return head.Element;
+                return ((dynamic)head is null) ? (dynamic)null : head.Element;
             }
             private set { }
         }
@@ -60,7 +60,7 @@ namespace SolitaireBCL
         {
             get
             {
-                return tail.Element;
+                return ((dynamic)tail is null) ? (dynamic)null : tail.Element;
             }
             private set { }
         }
@@ -111,13 +111,13 @@ namespace SolitaireBCL
 
                 if (element.Equals(temp.Element))
                 {
+                    if (temp == head && temp == tail)
+                    {
+                        head = tail = null;
+                    }
+
                     if (!(temp.PreviousElement is null))
                     {
-                        if (temp == head)
-                        {
-                            head = temp.NextElement;
-                        }
-
                         if (temp == tail)
                         {
                             tail = temp.PreviousElement;
@@ -131,11 +131,6 @@ namespace SolitaireBCL
                         if (temp == head)
                         {
                             head = temp.NextElement;
-                        }
-
-                        if (temp == tail)
-                        {
-                            tail = temp.PreviousElement;
                         }
 
                         temp.NextElement.PreviousElement = temp.PreviousElement;
