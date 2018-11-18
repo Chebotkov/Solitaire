@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace SolitaireBCL
 {
-
     public enum CardColour { Red, Black }
     public enum CardSuit { Pikes, Hearts, Clovers, Diamonds }
     public enum CardValue { Ace = 1, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King }
@@ -22,7 +21,7 @@ namespace SolitaireBCL
         };
     }
 
-    public class Card
+    public class Card : IEquatable<Card>
     {
         public readonly CardSuit suit;
         public readonly CardValue value;
@@ -32,10 +31,22 @@ namespace SolitaireBCL
             this.suit = suit;
             this.value = value;
         }
-
+        
         public CardColour GetCardColour()
         {
             return CardInfo.Cards[suit];
+        }
+
+        public bool Equals(Card other)
+        {
+            if (other.suit == this.suit)
+            {
+                if (other.value == this.value)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

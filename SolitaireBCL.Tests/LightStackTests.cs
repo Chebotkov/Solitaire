@@ -19,6 +19,23 @@ namespace SolitaireBCL.Tests
         }
 
         [TestCase()]
+        public void ReverseTest()
+        {
+            //Arrange
+            var stack = Init();
+            LightStack<string> expectedStack = new LightStack<string>();
+            expectedStack.Push("Tolik");
+            expectedStack.Push("Valera");
+            expectedStack.Push("Pasha");
+
+            //Act
+            stack.Reverse();
+
+            //Assert
+            Assert.AreEqual(expectedStack, stack);
+        }
+
+        [TestCase()]
         public void PeekTest()
         {
             //Arrange

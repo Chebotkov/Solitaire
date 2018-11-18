@@ -123,6 +123,17 @@ namespace SolitaireBCL
             }
             return false;
         }
+
+        public void Reverse()
+        {
+            LightStack<T> newStack = new LightStack<T>();
+            foreach (T element in this)
+            {
+                newStack.Push(element);
+            }
+
+            current = newStack.current;
+        }
         #endregion
 
         #region Implementation of interfaces
