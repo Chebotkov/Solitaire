@@ -5,15 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SolitaireGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Solitaire" Height="500" Width="625" MinHeight="500" MinWidth="570" WindowStartupLocation="CenterScreen" Icon="Resourses/solitaireIcon.ico" Background="White">
     <Window.Resources>
         <Style TargetType="Button">
-            <Setter Property="Margin" Value="5 5"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Width" Value="64"></Setter>
+        </Style>
+        <Style TargetType="Image">
+            <Setter Property="Source" Value="Resourses/emptySpace.png"/>
+            <Setter Property="Stretch" Value="Fill"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="VerticalAlignment" Value="Top"></Setter>
+            <Setter Property="Width" Value="64"></Setter>
+            <Setter Property="Height" Value="90"></Setter>
         </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="120"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -26,19 +35,22 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="0"></Button>
-        <Button Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"></Button>
-        <Button Grid.Row="0" Grid.Column="3"></Button>
-        <Button Grid.Row="0" Grid.Column="4"></Button>
-        <Button Grid.Row="0" Grid.Column="5"></Button>
-        <Button Grid.Row="0" Grid.Column="6"></Button>
-
-        <Button Grid.Row="1" Grid.Column="0"></Button>
-        <Button Grid.Row="1" Grid.Column="1"></Button>
-        <Button Grid.Row="1" Grid.Column="2"></Button>
-        <Button Grid.Row="1" Grid.Column="3"></Button>
-        <Button Grid.Row="1" Grid.Column="4"></Button>
-        <Button Grid.Row="1" Grid.Column="5"></Button>
-        <Button Grid.Row="1" Grid.Column="6"></Button>
+        <Image Source="Resourses/background.jpg" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="7" Stretch="Fill" Style="{x:Null}"></Image>
+        <Button Grid.Row="0" Grid.Column="0" Margin="5 20 5 10" ClickMode="Press">
+            <Image Source="Resourses/card.jpg" Stretch="UniformToFill" Margin="0" Style="{x:Null}"></Image>
+        </Button>
+        <Image Grid.Row="0" Grid.Column="3" Margin="0 20 0 0"></Image>
+        <Image Grid.Row="0" Grid.Column="4" Margin="0 20 0 0"></Image>
+        <Image Grid.Row="0" Grid.Column="1" Margin="0 20 0 0"></Image>
+        <Image Grid.Row="0" Grid.Column="5" Margin="0 20 0 0"></Image>
+        <Image Grid.Row="0" Grid.Column="6" Margin="0 20 0 0"></Image>
+        
+        <Image Grid.Row="1" Grid.Column="0" Margin="0 30"></Image>
+        <Image Grid.Row="1" Grid.Column="1" Margin="0 30"></Image>
+        <Image Grid.Row="1" Grid.Column="2" Margin="0 30"></Image>
+        <Image Grid.Row="1" Grid.Column="3" Margin="0 30"></Image>
+        <Image Grid.Row="1" Grid.Column="4" Margin="0 30"></Image>
+        <Image Grid.Row="1" Grid.Column="5" Margin="0 30"></Image>
+        <Image Grid.Row="1" Grid.Column="6" Margin="0 30"></Image>
     </Grid>
 </Window>
