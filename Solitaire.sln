@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolitaireBCL", "SolitaireBC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolitaireBCL.Tests", "SolitaireBCL.Tests\SolitaireBCL.Tests.csproj", "{F2C5E52B-610E-402A-86A7-0EE87D874FB7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolitaireGUI", "SolitaireGUI\SolitaireGUI.csproj", "{2C727BEE-3443-47BE-87DB-59AA24163C12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F2C5E52B-610E-402A-86A7-0EE87D874FB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2C5E52B-610E-402A-86A7-0EE87D874FB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2C5E52B-610E-402A-86A7-0EE87D874FB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C727BEE-3443-47BE-87DB-59AA24163C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C727BEE-3443-47BE-87DB-59AA24163C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C727BEE-3443-47BE-87DB-59AA24163C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C727BEE-3443-47BE-87DB-59AA24163C12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
