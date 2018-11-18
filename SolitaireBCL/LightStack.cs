@@ -45,9 +45,9 @@ namespace SolitaireBCL
             }
             private set { }
         }
-        #endregion
 
         public int Count { get; private set; }
+        #endregion
 
         #region Constructors
         public LightStack()
