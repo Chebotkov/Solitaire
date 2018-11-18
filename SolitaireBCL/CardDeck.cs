@@ -10,17 +10,19 @@ namespace SolitaireBCL
 
     public class CardDeck
     {
-        public LightStack<Card> Deck { get; private set; }
+        private Random random;
+        public LightList<Card> Deck { get; private set; }
         public readonly CardDeckSize DeckSize;
         public CardDeck(CardDeckSize cardDeckSize)
         {
             DeckSize = cardDeckSize;
             Deck = CardDeckInitialization();
+            random = new Random();
         }
 
-        private LightStack<Card> CardDeckInitialization()
+        private LightList<Card> CardDeckInitialization()
         {
-            LightStack<Card> stack = new LightStack<Card>();
+            LightList<Card> list = new LightList<Card>();
             if (DeckSize == CardDeckSize.Standard)
             {
                 foreach (CardSuit suit in Enum.GetValues(typeof(CardSuit)))
@@ -29,10 +31,10 @@ namespace SolitaireBCL
                     {
                         if (value > CardValue.Five)
                         {
-                            stack.Push(new Card(suit, value));
+                            list.Add(new Card(suit, value));
                         }
                     }
-                    stack.Push(new Card(suit, CardValue.Ace));
+                    list.Add(new Card(suit, CardValue.Ace));
                 }
             }
             else
@@ -41,25 +43,29 @@ namespace SolitaireBCL
                 {
                     foreach (CardValue value in Enum.GetValues(typeof(CardValue)))
                     {
-                        stack.Push(new Card(suit, value));
+                        list.Add(new Card(suit, value));
                     }
                 }
             }
 
-            return stack;
+            return list;
         }
 
         public void DeckShuffle()
         {
-            throw new NotImplementedException();
+            LightList<Card> newList = new LightList<Card>();
 
-            Random random = new Random();
-            LightStack<Card> newDeck = new LightStack<Card>();
-
-            while(Deck.Count > 0)
+            while (Deck.Count > 0)
             {
+                Card card = new Card((CardSuit)random.Next(1, 5), (CardValue)random.Next(1, 14));
 
+                if (Deck.Remove(card))
+                {
+                    newList.Add(card);
+                }
             }
+
+            Deck = newList;
         }
     }
 }

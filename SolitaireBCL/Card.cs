@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SolitaireBCL
 {
     public enum CardColour { Red, Black }
-    public enum CardSuit { Pikes, Hearts, Clovers, Diamonds }
+    public enum CardSuit { Pikes = 1, Hearts, Clovers, Diamonds }
     public enum CardValue { Ace = 1, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King }
      
     public static class CardInfo

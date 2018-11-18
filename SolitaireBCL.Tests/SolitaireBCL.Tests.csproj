@@ -57,6 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CardTests.cs" />
     <Compile Include="LightListTests.cs" />
+    <Compile Include="CardDeckTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
