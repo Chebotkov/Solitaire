@@ -135,20 +135,5 @@ namespace SolitaireBCL.Tests
             //Assert
             Assert.AreEqual(expected, result);
         }
-        
-        [TestCase()]
-        public void GetEnumeratorTest()
-        {
-            //Arrange
-            var stack = Init();
-            var collection = new List<string> { "Pasha", "Valera", "Tolik" };
-            var expectedEnumerator = collection.GetEnumerator();
-
-            //Act
-            var result = stack.GetEnumerator();
-
-            //Assert
-            Assert.AreEqual(expectedEnumerator, result);
-        }
     }
 }

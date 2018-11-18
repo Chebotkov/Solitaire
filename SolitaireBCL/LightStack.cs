@@ -114,7 +114,7 @@ namespace SolitaireBCL
 
         public bool Contains(T desiredElement)
         {
-            foreach (T element in (IEnumerable<T>)GetEnumerator())
+            foreach (T element in this)
             {
                 if (desiredElement.Equals(element))
                 {
