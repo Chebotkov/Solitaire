@@ -44,8 +44,8 @@
         <Image Grid.Row="0" Grid.Column="1" Margin="0 20 0 0"></Image>
         <Image Grid.Row="0" Grid.Column="5" Margin="0 20 0 0"></Image>
         <Image Grid.Row="0" Grid.Column="6" Margin="0 20 0 0"></Image>
-        
-        <Image Grid.Row="1" Grid.Column="0" Margin="0 30"></Image>
+
+        <Image Grid.Row="1" Grid.Column="0" Margin="0 30" Source="Resourses\Cards\AceHearts.png"></Image>
         <Image Grid.Row="1" Grid.Column="1" Margin="0 30"></Image>
         <Image Grid.Row="1" Grid.Column="2" Margin="0 30"></Image>
         <Image Grid.Row="1" Grid.Column="3" Margin="0 30"></Image>

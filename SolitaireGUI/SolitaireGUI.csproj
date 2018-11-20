@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Additional Classes\CardManager.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +104,67 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resourses\solitaireIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resourses\Cards\AceClovers.png" />
+    <Resource Include="Resourses\Cards\AceDiamond.png" />
+    <Resource Include="Resourses\Cards\AceHearts.png" />
+    <Resource Include="Resourses\Cards\AcePikes.png" />
+    <Resource Include="Resourses\Cards\CardBack.png" />
+    <Resource Include="Resourses\Cards\EightClovers.png" />
+    <Resource Include="Resourses\Cards\EightDiamond.png" />
+    <Resource Include="Resourses\Cards\EightHearts.png" />
+    <Resource Include="Resourses\Cards\EightPikes.png" />
+    <Resource Include="Resourses\Cards\FiveClovers.png" />
+    <Resource Include="Resourses\Cards\FiveDiamond.png" />
+    <Resource Include="Resourses\Cards\FiveHearts.png" />
+    <Resource Include="Resourses\Cards\FivePikes.png" />
+    <Resource Include="Resourses\Cards\FourClovers.png" />
+    <Resource Include="Resourses\Cards\FourDiamond.png" />
+    <Resource Include="Resourses\Cards\FourHearts.png" />
+    <Resource Include="Resourses\Cards\FourPikes.png" />
+    <Resource Include="Resourses\Cards\JackClovers.png" />
+    <Resource Include="Resourses\Cards\JackDiamond.png" />
+    <Resource Include="Resourses\Cards\JackHearts.png" />
+    <Resource Include="Resourses\Cards\JackPikes.png" />
+    <Resource Include="Resourses\Cards\KingClovers.png" />
+    <Resource Include="Resourses\Cards\KingDiamond.png" />
+    <Resource Include="Resourses\Cards\KingHearts.png" />
+    <Resource Include="Resourses\Cards\KingPikes.png" />
+    <Resource Include="Resourses\Cards\NineClovers.png" />
+    <Resource Include="Resourses\Cards\NineDiamond.png" />
+    <Resource Include="Resourses\Cards\NineHearts.png" />
+    <Resource Include="Resourses\Cards\NinePikes.png" />
+    <Resource Include="Resourses\Cards\QueenClovers.png" />
+    <Resource Include="Resourses\Cards\QueenDiamond.png" />
+    <Resource Include="Resourses\Cards\QueenHearts.png" />
+    <Resource Include="Resourses\Cards\QueenPikes.png" />
+    <Resource Include="Resourses\Cards\SevenClovers.png" />
+    <Resource Include="Resourses\Cards\SevenDiamond.png" />
+    <Resource Include="Resourses\Cards\SevenHearts.png" />
+    <Resource Include="Resourses\Cards\SevenPikes.png" />
+    <Resource Include="Resourses\Cards\SixClovers.png" />
+    <Resource Include="Resourses\Cards\SixDiamond.png" />
+    <Resource Include="Resourses\Cards\SixHearts.png" />
+    <Resource Include="Resourses\Cards\SixPikes.png" />
+    <Resource Include="Resourses\Cards\TenClovers.png" />
+    <Resource Include="Resourses\Cards\TenDiamond.png" />
+    <Resource Include="Resourses\Cards\TenHearts.png" />
+    <Resource Include="Resourses\Cards\TenPikes.png" />
+    <Resource Include="Resourses\Cards\ThreeClovers.png" />
+    <Resource Include="Resourses\Cards\ThreeDiamond.png" />
+    <Resource Include="Resourses\Cards\ThreeHearts.png" />
+    <Resource Include="Resourses\Cards\ThreePikes.png" />
+    <Resource Include="Resourses\Cards\TwoClovers.png" />
+    <Resource Include="Resourses\Cards\TwoDiamond.png" />
+    <Resource Include="Resourses\Cards\TwoHearts.png" />
+    <Resource Include="Resourses\Cards\TwoPikes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SolitaireBCL\SolitaireBCL.csproj">
+      <Project>{37fba65e-2610-4350-85db-3c50d90d2174}</Project>
+      <Name>SolitaireBCL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
