@@ -25,13 +25,13 @@ namespace SolitaireBCL
     {
         public readonly CardSuit suit;
         public readonly CardValue value;
-
+        
         public Card(CardSuit suit, CardValue value)
         {
             this.suit = suit;
             this.value = value;
         }
-        
+
         public CardColour GetCardColour()
         {
             return CardInfo.Cards[suit];

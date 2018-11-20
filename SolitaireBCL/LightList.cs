@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+using System.ComponentModel;
+using System.Collections.Specialized;
 
 namespace SolitaireBCL
 {
     internal class Node<T> : ICloneable
     {
-        public readonly T Element;
+        public T Element;
         public Node<T> NextElement;
         public Node<T> PreviousElement;
 
@@ -35,11 +38,12 @@ namespace SolitaireBCL
         }
     }
 
-    public class LightList<T> : IEnumerable<T>, IDisposable where T : IEquatable<T>
+    public class LightList<T> : IEnumerable<T>, IDisposable, INotifyPropertyChanged, INotifyCollectionChanged where T : IEquatable<T>
     {
         #region Properties and variables
         private Node<T> head;
         private Node<T> tail;
+        private int count;
 
         /// <summary>
         /// Gets the first element of list.
@@ -50,7 +54,11 @@ namespace SolitaireBCL
             {
                 return ((dynamic)head is null) ? (dynamic)null : head.Element;
             }
-            private set { }
+            private set
+            {
+                First = value;
+                OnPropertyChanged("First");
+            }
         }
 
         /// <summary>
@@ -62,13 +70,28 @@ namespace SolitaireBCL
             {
                 return ((dynamic)tail is null) ? (dynamic)null : tail.Element;
             }
-            private set { }
+            private set
+            {
+                Last = value;
+                OnPropertyChanged("Last");
+            }
         }
 
         /// <summary>
         /// Gets the count of elements.
         /// </summary>
-        public int Count { get; private set; }
+        public int Count
+        {
+            get
+            {
+                return count;
+            }
+            private set
+            {
+                count = value;
+                OnPropertyChanged("Count");
+            }
+        }
         #endregion
 
         #region Public methods
@@ -92,6 +115,7 @@ namespace SolitaireBCL
             }
 
             Count++;
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, element));
         }
 
         /// <summary>
@@ -137,6 +161,7 @@ namespace SolitaireBCL
                     }
 
                     Count--;
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, element));
 
                     return true;
                 }
@@ -187,6 +212,25 @@ namespace SolitaireBCL
             this.head = newList.head;
             this.tail = newList.tail;
         }
+
+        public T this[int index]
+        {
+            get
+            {
+                if (index > Count - 1)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+
+                return GetElementByIndex(index).Element;
+            }
+            set
+            {
+                T oldValue = this[index];
+                GetElementByIndex(index).Element = value;
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, oldValue));
+            }
+        }
         #endregion
 
         #region Implementation of interfaces
@@ -214,6 +258,34 @@ namespace SolitaireBCL
         public void Dispose()
         {
             throw new NotImplementedException();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+        {
+            CollectionChanged?.Invoke(this, e);
+        }
+        #endregion
+
+        #region Private methods
+        private Node<T> GetElementByIndex(int index)
+        {
+            var temp = head;
+            int currentIndex = 0;
+            while (currentIndex < index)
+            {
+                temp = temp.NextElement;
+                currentIndex++;
+            }
+
+            return temp;
         }
         #endregion
     }

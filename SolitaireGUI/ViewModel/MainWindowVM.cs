@@ -5,18 +5,27 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using SolitaireBCL;
 
 namespace SolitaireGUI.ViewModel
 {
-    class MainWindowVM : INotifyPropertyChanged
+    class MainWindowVM : DependencyObject
     {
+        public static readonly DependencyProperty MainDeckProperty;
 
+        public static readonly CardDeck cardDeck;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        static MainWindowVM()
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            cardDeck = new CardDeck(CardDeckSize.Full);
+            MainDeckProperty = DependencyProperty.Register("MainDeck", typeof(LightList<Card>), typeof(MainWindowVM), new PropertyMetadata(cardDeck.Deck));
+        }
+
+        public LightList<Card> MainDeck
+        {
+            get { return (LightList<Card>)GetValue(MainDeckProperty); }
+            set { SetValue(MainDeckProperty, value); }
         }
     }
 }

@@ -51,6 +51,6 @@
         <Image Grid.Row="1" Grid.Column="3" Margin="0 30"></Image>
         <Image Grid.Row="1" Grid.Column="4" Margin="0 30"></Image>
         <Image Grid.Row="1" Grid.Column="5" Margin="0 30"></Image>
-        <Image Grid.Row="1" Grid.Column="6" Margin="0 30"></Image>
+        <ListBox Grid.Row="1" Grid.Column="6" Margin="0 30" Height="Auto" ItemsSource="{Binding MainDeck}" DisplayMemberPath="{Binding Path=CardSuit}"></ListBox>
     </Grid>
 </Window>

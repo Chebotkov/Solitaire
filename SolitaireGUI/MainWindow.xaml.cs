@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SolitaireGUI.ViewModel;
 
 namespace SolitaireGUI
 {
@@ -23,6 +24,12 @@ namespace SolitaireGUI
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            DataContext = new MainWindowVM();
         }
     }
 }
