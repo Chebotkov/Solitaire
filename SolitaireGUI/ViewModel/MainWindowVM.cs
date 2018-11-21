@@ -17,12 +17,29 @@ namespace SolitaireGUI.ViewModel
         public static CardDeckSize DeckSize = CardDeckSize.Full;
         public int CountOfCardsInMainStack = 3;
         private LightStack<Card> mainStack;
+        private LightStack<Card> firstOutPutStack;
+        private LightStack<Card> secondOutPutStack;
+        private LightStack<Card> thirdOutPutStack;
+        private LightStack<Card> fourthOutPutStack;
         private LightList<Card> mainDeck;
         private Card selectedCard;
         private int positionInMainDeck = -1;
         private BaseCommand newGameCommand;
         private BaseCommand shuffleMainStackCommand;
 
+        #region Constructors
+        static MainWindowVM()
+        {
+            MainDeckProperty = DependencyProperty.Register("MainCardDeck", typeof(CardDeck), typeof(MainWindowVM), new PropertyMetadata(new CardDeck(DeckSize)));
+        }
+
+        public MainWindowVM()
+        {
+            NewGame();
+        }
+        #endregion
+
+        #region Commands
         public BaseCommand NewGameCommand
         {
             get
@@ -46,15 +63,19 @@ namespace SolitaireGUI.ViewModel
                     if (positionInMainDeck >= MainDeck.Count - 1)
                     {
                         positionInMainDeck = -1;
+                        MainStack = null;
                     }
-
-                    int startIndex = positionInMainDeck + 1;
-                    positionInMainDeck = positionInMainDeck + CountOfCardsInMainStack < mainDeck.Count ? positionInMainDeck + CountOfCardsInMainStack : positionInMainDeck + mainDeck.Count - positionInMainDeck - 1;
-                    MainStack = GetNewMainStack(startIndex, positionInMainDeck);
+                    else
+                    {
+                        int startIndex = positionInMainDeck + 1;
+                        positionInMainDeck = positionInMainDeck + CountOfCardsInMainStack < mainDeck.Count ? positionInMainDeck + CountOfCardsInMainStack : positionInMainDeck + mainDeck.Count - positionInMainDeck - 1;
+                        MainStack = GetNewMainStack(startIndex, positionInMainDeck);
+                    }
                 }));
             }
             private set { }
         }
+        #endregion
 
         public Card SelectedCard
         {
@@ -67,17 +88,6 @@ namespace SolitaireGUI.ViewModel
                 selectedCard = value;
                 OnPropertyChanged(nameof(SelectedCard));
             }
-        }
-
-        static MainWindowVM()
-        {
-            MainDeckProperty = DependencyProperty.Register("MainCardDeck", typeof(CardDeck), typeof(MainWindowVM), new PropertyMetadata(new CardDeck(DeckSize)));
-        }
-
-        public MainWindowVM()
-        {
-            selectedCard = MainDeck.First;
-            mainDeck = ((CardDeck)GetValue(MainDeckProperty)).Deck;
         }
 
         public LightList<Card> MainDeck
@@ -103,6 +113,58 @@ namespace SolitaireGUI.ViewModel
             }
         }
 
+        public LightStack<Card> FirstOutPutStack
+        {
+            get
+            {
+                return firstOutPutStack;
+            }
+            set
+            {
+                firstOutPutStack = value;
+                OnPropertyChanged(nameof(FirstOutPutStack));
+            }
+        }
+
+        public LightStack<Card> SecondOutPutStack
+        {
+            get
+            {
+                return secondOutPutStack;
+            }
+            set
+            {
+                secondOutPutStack = value;
+                OnPropertyChanged(nameof(SecondOutPutStack));
+            }
+        }
+
+        public LightStack<Card> ThirdOutPutStack
+        {
+            get
+            {
+                return thirdOutPutStack;
+            }
+            set
+            {
+                thirdOutPutStack = value;
+                OnPropertyChanged(nameof(ThirdOutPutStack));
+            }
+        }
+
+        public LightStack<Card> FourthOutPutStack
+        {
+            get
+            {
+                return fourthOutPutStack;
+            }
+            set
+            {
+                fourthOutPutStack = value;
+                OnPropertyChanged(nameof(FourthOutPutStack));
+            }
+        }
+
         public CardDeck MainCardDeck
         {
             get { return (CardDeck)GetValue(MainDeckProperty); }
@@ -118,6 +180,7 @@ namespace SolitaireGUI.ViewModel
         private void NewGame()
         {
             //Deck shuffling
+            selectedCard = MainDeck.First;
             MainCardDeck.DeckShuffle();
             MainDeck = MainCardDeck.Deck;
             selectedCard = MainDeck.First;
@@ -126,6 +189,12 @@ namespace SolitaireGUI.ViewModel
 
             //MainStackReset
             MainStack = null;
+
+            //Output Stacks Reset
+            FirstOutPutStack = null;
+            SecondOutPutStack = null;
+            ThirdOutPutStack = null;
+            FourthOutPutStack = null;
         }
 
         private LightStack<Card> GetNewMainStack(int startIndex, int currentIndex)

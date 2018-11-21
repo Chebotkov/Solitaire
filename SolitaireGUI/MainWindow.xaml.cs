@@ -50,7 +50,7 @@ namespace SolitaireGUI
             MainStack.Children.Clear();
             if (stack == null)
             {
-                SetDefault();
+                MainStack.Children.Clear();
             }
             else
             {
@@ -83,6 +83,116 @@ namespace SolitaireGUI
         private BitmapImage GetBitmap(Card card)
         {
             return new BitmapImage(new Uri(CardManager.GetPathToCard(card), UriKind.Relative));
+        }
+
+        private void MenuExitItem_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void NewGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainStack.Children.Clear();
+        }
+
+        private void FirstOutPutStack_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            LightStack<Card> stack = FirstOutPutStack.DataContext as LightStack<Card>;
+            if (stack == null)
+            {
+                FirstOutPutStack.Children.Clear();
+                Image image = new Image();
+                Thickness margin = image.Margin;
+                margin.Left = 12;
+                margin.Top = 20;
+                image.Margin = margin;
+                FirstOutPutStack.Children.Add(image);
+            }
+            else
+            {
+                Image image = new Image();
+                Thickness margin = image.Margin;
+                margin.Left = 1;
+                margin.Top = 20;
+                image.Margin = margin;
+                image.Source = GetBitmap(stack.Peek());
+                FirstOutPutStack.Children.Add(image);
+            }
+        }
+
+        private void SecondOutPutStack_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            LightStack<Card> stack = SecondOutPutStack.DataContext as LightStack<Card>;
+            if (stack == null)
+            {
+                SecondOutPutStack.Children.Clear();
+                Image image = new Image();
+                Thickness margin = image.Margin;
+                margin.Left = 12;
+                margin.Top = 20;
+                image.Margin = margin;
+                SecondOutPutStack.Children.Add(image);
+            }
+            else
+            {
+                Image image = new Image();
+                Thickness margin = image.Margin;
+                margin.Left = 12;
+                margin.Top = 20;
+                image.Margin = margin;
+                image.Source = GetBitmap(stack.Peek());
+                SecondOutPutStack.Children.Add(image);
+            }
+        }
+
+        private void ThirdOutPutStack_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            LightStack<Card> stack = ThirdOutPutStack.DataContext as LightStack<Card>;
+            if (stack == null)
+            {
+                SecondOutPutStack.Children.Clear();
+                Image image = new Image();
+                Thickness margin = image.Margin;
+                margin.Left = 12;
+                margin.Top = 20;
+                image.Margin = margin;
+                ThirdOutPutStack.Children.Add(image);
+            }
+            else
+            {
+                Image image = new Image();
+                Thickness margin = image.Margin;
+                margin.Left = 12;
+                margin.Top = 20;
+                image.Margin = margin;
+                image.Source = GetBitmap(stack.Peek());
+                ThirdOutPutStack.Children.Add(image);
+            }
+        }
+
+        private void FourthOutPutStack_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            LightStack<Card> stack = FourthOutPutStack.DataContext as LightStack<Card>;
+            if (stack == null)
+            {
+                SecondOutPutStack.Children.Clear();
+                Image image = new Image();
+                Thickness margin = image.Margin;
+                margin.Left = 12;
+                margin.Top = 20;
+                image.Margin = margin;
+                FourthOutPutStack.Children.Add(image);
+            }
+            else
+            {
+                Image image = new Image();
+                Thickness margin = image.Margin;
+                margin.Left = 12;
+                margin.Top = 20;
+                image.Margin = margin;
+                image.Source = GetBitmap(stack.Peek());
+                FourthOutPutStack.Children.Add(image);
+            }
         }
     }
 }
