@@ -48,5 +48,10 @@ namespace SolitaireBCL
             }
             return false;
         }
+
+        public override string ToString()
+        {
+            return String.Format("The {0} of {1}", value, suit);
+        }
     }
 }

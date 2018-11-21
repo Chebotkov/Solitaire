@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Additional Classes\BaseCommand.cs" />
     <Compile Include="Additional Classes\CardManager.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Page Include="MainWindow.xaml">

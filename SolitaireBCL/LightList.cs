@@ -94,6 +94,21 @@ namespace SolitaireBCL
         }
         #endregion
 
+        #region Constructors
+        public LightList()
+        {
+
+        }
+
+        public LightList(IEnumerable<T> collection)
+        {
+            foreach (T element in collection)
+            {
+                this.Add(element);
+            }
+        }
+        #endregion
+
         #region Public methods
         /// <summary>
         /// Adds element to list.
@@ -125,6 +140,7 @@ namespace SolitaireBCL
         /// <returns>true - if element was removed, false - if wasn't.</returns>
         public bool Remove(T element)
         {
+            int index = 0;
             var temp = head;
             while (true)
             {
@@ -161,12 +177,13 @@ namespace SolitaireBCL
                     }
 
                     Count--;
-                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, element));
+                    OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, element, index));
 
                     return true;
                 }
 
                 temp = temp.NextElement;
+                index++;
             }
 
             return false;

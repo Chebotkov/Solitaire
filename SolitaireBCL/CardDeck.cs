@@ -55,11 +55,11 @@ namespace SolitaireBCL
         {
             LightList<Card> newList = new LightList<Card>();
 
-            while (Deck.Count > 0)
+            while (newList.Count < (int)DeckSize)
             {
                 Card card = new Card((CardSuit)random.Next(1, 5), (CardValue)random.Next(1, 14));
 
-                if (Deck.Remove(card))
+                if (!newList.Contains(card))
                 {
                     newList.Add(card);
                 }

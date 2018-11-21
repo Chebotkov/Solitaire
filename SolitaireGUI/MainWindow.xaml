@@ -22,6 +22,7 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="120"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
@@ -35,22 +36,29 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Image Source="Resourses/background.jpg" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="7" Stretch="Fill" Style="{x:Null}"></Image>
-        <Button Grid.Row="0" Grid.Column="0" Margin="5 20 5 10" ClickMode="Press">
+        <Menu VerticalAlignment="Top" Grid.ColumnSpan="7">
+            <MenuItem Header="Game">
+                <MenuItem Name="NewGameButton" Header="New Game" Command="{Binding ShuffleCommand}"></MenuItem>
+                <MenuItem Header="Exit"></MenuItem>
+            </MenuItem>
+        </Menu>
+        
+        <Image Source="Resourses/background.jpg" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="7" Stretch="Fill" Style="{x:Null}"></Image>
+        <Button Grid.Row="1" Grid.Column="0" Margin="5 20 5 10" ClickMode="Press">
             <Image Source="Resourses/card.jpg" Stretch="UniformToFill" Margin="0" Style="{x:Null}"></Image>
         </Button>
-        <Image Grid.Row="0" Grid.Column="3" Margin="0 20 0 0"></Image>
-        <Image Grid.Row="0" Grid.Column="4" Margin="0 20 0 0"></Image>
-        <Image Grid.Row="0" Grid.Column="1" Margin="0 20 0 0"></Image>
-        <Image Grid.Row="0" Grid.Column="5" Margin="0 20 0 0"></Image>
-        <Image Grid.Row="0" Grid.Column="6" Margin="0 20 0 0"></Image>
+        <Image Grid.Row="1" Grid.Column="3" Margin="0 20 0 0"></Image>
+        <Image Grid.Row="1" Grid.Column="4" Margin="0 20 0 0"></Image>
+        <Image Grid.Row="1" Grid.Column="1" Margin="0 20 0 0"></Image>
+        <Image Grid.Row="1" Grid.Column="5" Margin="0 20 0 0"></Image>
+        <Image Grid.Row="1" Grid.Column="6" Margin="0 20 0 0"></Image>
 
-        <Image Grid.Row="1" Grid.Column="0" Margin="0 30" Source="Resourses\Cards\AceHearts.png"></Image>
-        <Image Grid.Row="1" Grid.Column="1" Margin="0 30"></Image>
-        <Image Grid.Row="1" Grid.Column="2" Margin="0 30"></Image>
-        <Image Grid.Row="1" Grid.Column="3" Margin="0 30"></Image>
-        <Image Grid.Row="1" Grid.Column="4" Margin="0 30"></Image>
-        <Image Grid.Row="1" Grid.Column="5" Margin="0 30"></Image>
-        <ListBox Grid.Row="1" Grid.Column="6" Margin="0 30" Height="Auto" ItemsSource="{Binding MainDeck}" DisplayMemberPath="{Binding Path=CardSuit}"></ListBox>
+        <Image Grid.Row="2" Grid.Column="0" Margin="0 30" Source="Resourses\Cards\AceHearts.png"></Image>
+        <Image Grid.Row="2" Grid.Column="1" Margin="0 30"></Image>
+        <Image Grid.Row="2" Grid.Column="2" Margin="0 30"></Image>
+        <Image Grid.Row="2" Grid.Column="3" Margin="0 30"></Image>
+        <Image Grid.Row="2" Grid.Column="4" Margin="0 30"></Image>
+        <Image Grid.Row="2" Grid.Column="5" Margin="0 30"></Image>
+        <ListBox Grid.Row="2" Grid.Column="6" Margin="0 30" Height="Auto" ItemsSource="{Binding MainDeck, UpdateSourceTrigger=PropertyChanged}"></ListBox>
     </Grid>
 </Window>
