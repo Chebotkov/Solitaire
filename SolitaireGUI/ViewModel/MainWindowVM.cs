@@ -191,10 +191,13 @@ namespace SolitaireGUI.ViewModel
             MainStack = null;
 
             //Output Stacks Reset
-            FirstOutPutStack = null;
-            SecondOutPutStack = null;
-            ThirdOutPutStack = null;
-            FourthOutPutStack = null;
+            FirstOutPutStack = new LightStack<Card>();
+            SecondOutPutStack = new LightStack<Card>();
+            ThirdOutPutStack = new LightStack<Card>();
+            FourthOutPutStack = new LightStack<Card>();
+            
+            FirstOutPutStack.Push(new Card(CardSuit.Clovers, CardValue.Ace));
+            ThirdOutPutStack.Push(new Card(CardSuit.Diamonds, CardValue.Five));
         }
 
         private LightStack<Card> GetNewMainStack(int startIndex, int currentIndex)

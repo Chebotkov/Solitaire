@@ -87,7 +87,7 @@ namespace SolitaireGUI
 
         private void MenuExitItem_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Application.Current.Shutdown();
         }
 
         private void NewGameButton_Click(object sender, RoutedEventArgs e)
@@ -95,103 +95,46 @@ namespace SolitaireGUI
             MainStack.Children.Clear();
         }
 
-        private void FirstOutPutStack_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void OutPutStack_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            LightStack<Card> stack = FirstOutPutStack.DataContext as LightStack<Card>;
-            if (stack == null)
+            StackPanel current = sender as StackPanel;
+            if (current != null)
             {
-                FirstOutPutStack.Children.Clear();
+                current.Children.Clear();
+                LightStack<Card> stack = current.DataContext as LightStack<Card>;
                 Image image = new Image();
+                if (stack!= null && stack.Count > 0)
+                {
+                    image.Source = GetBitmap(stack.Peek());
+                }
+                
                 Thickness margin = image.Margin;
                 margin.Left = 12;
                 margin.Top = 20;
                 image.Margin = margin;
-                FirstOutPutStack.Children.Add(image);
-            }
-            else
-            {
-                Image image = new Image();
-                Thickness margin = image.Margin;
-                margin.Left = 1;
-                margin.Top = 20;
-                image.Margin = margin;
-                image.Source = GetBitmap(stack.Peek());
-                FirstOutPutStack.Children.Add(image);
+                current.Children.Add(image);
             }
         }
 
-        private void SecondOutPutStack_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            LightStack<Card> stack = SecondOutPutStack.DataContext as LightStack<Card>;
-            if (stack == null)
+            Image current = sender as Image;
+            if (sender != null)
             {
-                SecondOutPutStack.Children.Clear();
-                Image image = new Image();
-                Thickness margin = image.Margin;
-                margin.Left = 12;
-                margin.Top = 20;
-                image.Margin = margin;
-                SecondOutPutStack.Children.Add(image);
-            }
-            else
-            {
-                Image image = new Image();
-                Thickness margin = image.Margin;
-                margin.Left = 12;
-                margin.Top = 20;
-                image.Margin = margin;
-                image.Source = GetBitmap(stack.Peek());
-                SecondOutPutStack.Children.Add(image);
+                DragDrop.DoDragDrop(current, current, DragDropEffects.Move);
             }
         }
 
-        private void ThirdOutPutStack_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void Image_Drop(object sender, DragEventArgs e)
         {
-            LightStack<Card> stack = ThirdOutPutStack.DataContext as LightStack<Card>;
-            if (stack == null)
+            Image current = sender as Image;
+            if (sender != null)
             {
-                SecondOutPutStack.Children.Clear();
-                Image image = new Image();
-                Thickness margin = image.Margin;
-                margin.Left = 12;
-                margin.Top = 20;
-                image.Margin = margin;
-                ThirdOutPutStack.Children.Add(image);
-            }
-            else
-            {
-                Image image = new Image();
-                Thickness margin = image.Margin;
-                margin.Left = 12;
-                margin.Top = 20;
-                image.Margin = margin;
-                image.Source = GetBitmap(stack.Peek());
-                ThirdOutPutStack.Children.Add(image);
-            }
-        }
-
-        private void FourthOutPutStack_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            LightStack<Card> stack = FourthOutPutStack.DataContext as LightStack<Card>;
-            if (stack == null)
-            {
-                SecondOutPutStack.Children.Clear();
-                Image image = new Image();
-                Thickness margin = image.Margin;
-                margin.Left = 12;
-                margin.Top = 20;
-                image.Margin = margin;
-                FourthOutPutStack.Children.Add(image);
-            }
-            else
-            {
-                Image image = new Image();
-                Thickness margin = image.Margin;
-                margin.Left = 12;
-                margin.Top = 20;
-                image.Margin = margin;
-                image.Source = GetBitmap(stack.Peek());
-                FourthOutPutStack.Children.Add(image);
+                Image imageSender = e.Data.GetData(typeof(Image)) as Image;
+                if (imageSender != null)
+                {
+                    current.Source = imageSender.Source;
+                }
             }
         }
     }

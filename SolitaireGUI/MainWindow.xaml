@@ -24,6 +24,18 @@
             <Setter Property="VerticalAlignment" Value="Top"></Setter>
             <Setter Property="Width" Value="64"></Setter>
             <Setter Property="Height" Value="90"></Setter>
+            <Setter Property="AllowDrop" Value="True"></Setter>
+            <EventSetter Event="MouseDown" Handler="Image_MouseDown"></EventSetter>
+            <EventSetter Event="Drop" Handler="Image_Drop"></EventSetter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Image.BitmapEffect">
+                        <Setter.Value>
+                            <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid>
@@ -55,15 +67,15 @@
         </Button>
         <StackPanel Name="MainStack" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" DataContext="{Binding MainStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="MainStack_DataContextChanged">
         </StackPanel>
-        <StackPanel Name="FirstOutPutStack" Grid.Row="1" Grid.Column="3"  Orientation="Horizontal" DataContext="{Binding FirstOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="FirstOutPutStack_DataContextChanged">
+        <StackPanel Name="FirstOutPutStack" Grid.Row="1" Grid.Column="3"  Orientation="Horizontal" DataContext="{Binding FirstOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="OutPutStack_DataContextChanged">
             <Image Margin="12, 20 0 0"></Image>
         </StackPanel>
-        <StackPanel Name="SecondOutPutStack" Grid.Row="1" Grid.Column="4" Orientation="Horizontal" DataContext="{Binding SecondOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="SecondOutPutStack_DataContextChanged">
+        <StackPanel Name="SecondOutPutStack" Grid.Row="1" Grid.Column="4" Orientation="Horizontal" DataContext="{Binding SecondOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="OutPutStack_DataContextChanged">
             <Image Margin="12, 20 0 0"></Image>            
         </StackPanel>
-        <StackPanel Name="ThirdOutPutStack" Grid.Row="1" Grid.Column="5"  Orientation="Horizontal" DataContext="{Binding ThirdOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="ThirdOutPutStack_DataContextChanged">
+        <StackPanel Name="ThirdOutPutStack" Grid.Row="1" Grid.Column="5"  Orientation="Horizontal" DataContext="{Binding ThirdOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="OutPutStack_DataContextChanged">
             <Image Margin="12, 20 0 0"></Image></StackPanel>
-        <StackPanel Name="FourthOutPutStack" Grid.Row="1" Grid.Column="6" Orientation="Horizontal" DataContext="{Binding FourthOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="FourthOutPutStack_DataContextChanged">
+        <StackPanel Name="FourthOutPutStack" Grid.Row="1" Grid.Column="6" Orientation="Horizontal" DataContext="{Binding FourthOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="OutPutStack_DataContextChanged">
             <Image Margin="12, 20 0 0"></Image></StackPanel>
         
         <Image Grid.Row="2" Grid.Column="0" Margin="0 20"></Image>
