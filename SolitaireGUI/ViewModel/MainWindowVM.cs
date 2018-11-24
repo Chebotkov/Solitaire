@@ -17,10 +17,18 @@ namespace SolitaireGUI.ViewModel
         public static CardDeckSize DeckSize = CardDeckSize.Full;
         public int CountOfCardsInMainStack = 3;
         private LightStack<Card> mainStack;
+        //Add for each property current chosen value
         private LightStack<Card> firstOutPutStack;
         private LightStack<Card> secondOutPutStack;
         private LightStack<Card> thirdOutPutStack;
         private LightStack<Card> fourthOutPutStack;
+        private LightStack<Card> firstAdditionalStack;
+        private LightStack<Card> secondAdditionalStack;
+        private LightStack<Card> thirdAdditionalStack;
+        private LightStack<Card> fourthAdditionalStack;
+        private LightStack<Card> fifthAdditionalStack;
+        private LightStack<Card> sixthAdditionalStack;
+        private LightStack<Card> seventhAdditionalStack;
         private LightList<Card> mainDeck;
         private Card selectedCard;
         private int positionInMainDeck = -1;
@@ -162,6 +170,98 @@ namespace SolitaireGUI.ViewModel
             {
                 fourthOutPutStack = value;
                 OnPropertyChanged(nameof(FourthOutPutStack));
+            }
+        }
+
+
+        public LightStack<Card> FirstAdditionalStack
+        {
+            get
+            {
+                return firstAdditionalStack;
+            }
+            set
+            {
+                firstAdditionalStack = value;
+                OnPropertyChanged(nameof(FirstAdditionalStack));
+            }
+        }
+
+        public LightStack<Card> SecondAdditionalStack
+        {
+            get
+            {
+                return secondAdditionalStack;
+            }
+            set
+            {
+                secondAdditionalStack = value;
+                OnPropertyChanged(nameof(SecondAdditionalStack));
+            }
+        }
+
+        public LightStack<Card> ThirdAdditionalStack
+        {
+            get
+            {
+                return thirdAdditionalStack;
+            }
+            set
+            {
+                thirdAdditionalStack = value;
+                OnPropertyChanged(nameof(ThirdAdditionalStack));
+            }
+        }
+
+        public LightStack<Card> FourthAdditionalStack
+        {
+            get
+            {
+                return fourthAdditionalStack;
+            }
+            set
+            {
+                fourthAdditionalStack = value;
+                OnPropertyChanged(nameof(FourthAdditionalStack));
+            }
+        }
+
+        public LightStack<Card> FifthAdditionalStack
+        {
+            get
+            {
+                return fifthAdditionalStack;
+            }
+            set
+            {
+                fifthAdditionalStack = value;
+                OnPropertyChanged(nameof(FifthAdditionalStack));
+            }
+        }
+
+        public LightStack<Card> SixthAdditionalStack
+        {
+            get
+            {
+                return sixthAdditionalStack;
+            }
+            set
+            {
+                sixthAdditionalStack = value;
+                OnPropertyChanged(nameof(SixthAdditionalStack));
+            }
+        }
+
+        public LightStack<Card> SeventhAdditionalStack
+        {
+            get
+            {
+                return seventhAdditionalStack;
+            }
+            set
+            {
+                seventhAdditionalStack = value;
+                OnPropertyChanged(nameof(SeventhAdditionalStack));
             }
         }
 

@@ -127,13 +127,18 @@ namespace SolitaireBCL
 
         public void Reverse()
         {
+            current = GetReversedVersion().current;
+        }
+
+        public LightStack<T> GetReversedVersion()
+        {
             LightStack<T> newStack = new LightStack<T>();
             foreach (T element in this)
             {
                 newStack.Push(element);
             }
 
-            current = newStack.current;
+            return newStack;
         }
         #endregion
 
