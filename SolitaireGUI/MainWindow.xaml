@@ -65,7 +65,8 @@
         <Button Grid.Row="1" Grid.Column="0" Margin="5 20 5 10" ClickMode="Press" Command="{Binding ShuffleMainStackCommand}">
             <Image Name="DeckImage" Source="Resourses/card.jpg" Stretch="UniformToFill" Margin="0" Style="{x:Null}"></Image>
         </Button>
-        <StackPanel Name="MainStack" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" DataContext="{Binding MainStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="MainStack_DataContextChanged">
+        <StackPanel Name="MainStack" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <ItemsControl ItemsSource="{Binding MainStackPanel, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <Image Name="FirstOutPutStack" Grid.Row="1" Grid.Column="3" Margin="0 20 0 0" DataContext="{Binding FirstOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="OutPutStack_DataContextChanged"></Image>
         <Image Name="SecondOutPutStack" Grid.Row="1" Grid.Column="4" Margin="0 20 0 0"  DataContext="{Binding SecondOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="OutPutStack_DataContextChanged"></Image>

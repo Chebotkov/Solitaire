@@ -34,10 +34,11 @@ namespace SolitaireBCL
         }
     }
 
-    public class LightStack<T> : IEnumerable<T>, IDisposable where T : IEquatable<T>
+    public class LightStack<T> : IEnumerable<T>, IDisposable, INotifyCollectionChanged where T : IEquatable<T>
     {
         #region Properties and variables
         private StackElement<T> current;
+
         public T Current
         {
             get
@@ -90,7 +91,8 @@ namespace SolitaireBCL
             {
                 current = new StackElement<T>(element, current);
             }
-            
+
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, element));
             Count++;
         }
 
@@ -105,6 +107,7 @@ namespace SolitaireBCL
             current = current.PreviousElement;
             Count--;
 
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, temp));
             return temp;
         }
 
@@ -167,6 +170,13 @@ namespace SolitaireBCL
         public void Dispose()
         {
             throw new NotImplementedException();
+        }
+
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+        {
+            CollectionChanged?.Invoke(this, e);
         }
         #endregion
     }

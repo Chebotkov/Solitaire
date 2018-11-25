@@ -6,6 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using SolitaireBCL;
 using SolitaireGUI.Additional_Classes;
 
@@ -14,9 +16,13 @@ namespace SolitaireGUI.ViewModel
     class MainWindowVM : DependencyObject, INotifyPropertyChanged
     {
         public static readonly DependencyProperty MainDeckProperty;
+
+        public static DependencyProperty MainStackPanelProperty { get; }
+
         public static CardDeckSize DeckSize = CardDeckSize.Full;
-        public int CountOfCardsInMainStack = 3;
+        private int countOfCardsInMainStack = 3;
         private LightStack<Card> mainStack;
+        private int mainStackPreviousCount;
         //Add for each property current chosen value
         private LightStack<Card> firstOutPutStack;
         private LightStack<Card> secondOutPutStack;
@@ -39,11 +45,13 @@ namespace SolitaireGUI.ViewModel
         static MainWindowVM()
         {
             MainDeckProperty = DependencyProperty.Register("MainCardDeck", typeof(CardDeck), typeof(MainWindowVM), new PropertyMetadata(new CardDeck(DeckSize)));
+            MainStackPanelProperty = DependencyProperty.Register("MainStackPanel", typeof(StackPanel), typeof(MainWindowVM));
         }
 
         public MainWindowVM()
         {
             NewGame();
+            mainStack.CollectionChanged += MainStack_CollectionChanged;
         }
         #endregion
 
@@ -68,16 +76,14 @@ namespace SolitaireGUI.ViewModel
                 return shuffleMainStackCommand ??
                 (shuffleMainStackCommand = new BaseCommand(obj =>
                 {
-                    if (positionInMainDeck >= MainDeck.Count - 1)
+                    if (MainStack != null)
                     {
-                        positionInMainDeck = -1;
-                        MainStack = null;
-                    }
-                    else
-                    {
-                        int startIndex = positionInMainDeck + 1;
-                        positionInMainDeck = positionInMainDeck + CountOfCardsInMainStack < mainDeck.Count ? positionInMainDeck + CountOfCardsInMainStack : positionInMainDeck + mainDeck.Count - positionInMainDeck - 1;
-                        MainStack = GetNewMainStack(startIndex, positionInMainDeck);
+                        int upBorder = MainStack.Count + CountOfCardsInMainStack < mainDeck.Count ? (MainStack.Count + CountOfCardsInMainStack) : (MainStack.Count + (mainDeck.Count - MainStack.Count - 1));
+                        for (int i = MainStack.Count; i < upBorder; i++)
+                        {
+                            MainStack.Push(mainDeck[i]);
+                        }
+                        MessageBox.Show("Pushed");
                     }
                 }));
             }
@@ -108,6 +114,16 @@ namespace SolitaireGUI.ViewModel
             }
         }
 
+        public StackPanel MainStackPanel
+        {
+            get { return (StackPanel)GetValue(MainStackPanelProperty); }
+            set
+            {
+                SetValue(MainStackPanelProperty, value);
+                OnPropertyChanged(nameof(MainStackPanel));
+            }
+        }
+
         public LightStack<Card> MainStack
         {
             get
@@ -117,7 +133,27 @@ namespace SolitaireGUI.ViewModel
             set
             {
                 mainStack = value;
+                RefreshMainStackPanel();
+                MessageBox.Show("Refreshed");
                 OnPropertyChanged(nameof(MainStack));
+            }
+        }
+
+        public int CountOfCardsInMainStack
+        {
+            get
+            {
+                return countOfCardsInMainStack;
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException(String.Format("{0} can't be less than 1", nameof(CountOfCardsInMainStack)));
+                }
+
+                countOfCardsInMainStack = value;
+                OnPropertyChanged(nameof(CountOfCardsInMainStack));
             }
         }
 
@@ -280,7 +316,6 @@ namespace SolitaireGUI.ViewModel
         private void NewGame()
         {
             //Deck shuffling
-            selectedCard = MainDeck.First;
             MainCardDeck.DeckShuffle();
             MainDeck = MainCardDeck.Deck;
             selectedCard = MainDeck.First;
@@ -288,14 +323,16 @@ namespace SolitaireGUI.ViewModel
             positionInMainDeck = -1;
 
             //MainStackReset
-            MainStack = null;
+            MainStack = new LightStack<Card>();
+            MainStack.CollectionChanged += MainStack_CollectionChanged;
+            RefreshMainStackPanel();
 
             //Output Stacks Reset
             FirstOutPutStack = new LightStack<Card>();
             SecondOutPutStack = new LightStack<Card>();
             ThirdOutPutStack = new LightStack<Card>();
             FourthOutPutStack = new LightStack<Card>();
-            
+
             FirstOutPutStack.Push(new Card(CardSuit.Clovers, CardValue.Ace));
             ThirdOutPutStack.Push(new Card(CardSuit.Diamonds, CardValue.Five));
         }
@@ -309,6 +346,95 @@ namespace SolitaireGUI.ViewModel
             }
 
             return newStack;
+        }
+
+        private void MainStack_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+            {
+                MainDeck.Remove((Card)e.OldItems[0]);
+            }
+
+            if (mainStack.Count == 0 && positionInMainDeck > 0)
+            {
+                var temp = mainStack.GetReversedVersion();
+                temp.Push(mainDeck[--positionInMainDeck]);
+                MainStack = temp.GetReversedVersion();
+            }
+        }
+
+        private void RefreshMainStackPanel()
+        {
+            StackPanel stackPanel = new StackPanel();
+
+            if (MainStackPanel is null)
+            {
+                MainStackPanel = new StackPanel();
+            }
+
+            if (MainStackPanel.Children.Count == 0 && MainStack.Count > 0)
+            {
+                Image image = new Image();
+                Thickness margin = image.Margin;
+                margin.Left = 12;
+                margin.Top = 20;
+                image.Margin = margin;
+                image.Source = GetBitmap(MainStack.Peek());
+                stackPanel.Children.Add(image);
+            }
+            else
+            {
+                if (MainStack == null || MainStack.Count == 0)
+                {
+                    stackPanel.Children.Clear();
+                }
+                else
+                {
+                    int i = 0;
+                    LightStack<Card> Temp = new LightStack<Card>();
+                    while (i < CountOfCardsInMainStack)
+                    {
+                        Temp.Push(MainStack.Pop());
+                        i++;
+                    }
+
+                    foreach (Card element in Temp)
+                    {
+                        if (stackPanel.Children.Count == 0)
+                        {
+                            Image image = new Image();
+                            Thickness margin = image.Margin;
+                            margin.Left = 12;
+                            margin.Top = 20;
+                            image.Margin = margin;
+                            image.Source = GetBitmap(element);
+                            stackPanel.Children.Add(image);
+                        }
+                        else
+                        {
+                            Image image = new Image();
+                            image.Source = GetBitmap(element);
+                            Thickness margin = image.Margin;
+                            margin.Left = -35;
+                            margin.Top = 20;
+                            image.Margin = margin;
+                            stackPanel.Children.Add(image);
+                        }
+                    }
+                }
+            }
+
+            MainStackPanel = stackPanel;
+        }
+
+        private BitmapImage GetBitmap(string cardName)
+        {
+            return new BitmapImage(new Uri(String.Format("{0}\\{1}.png", CardManager.pathToCards, cardName), UriKind.Relative));
+        }
+
+        private BitmapImage GetBitmap(Card card)
+        {
+            return new BitmapImage(new Uri(CardManager.GetPathToCard(card), UriKind.Relative));
         }
     }
 }

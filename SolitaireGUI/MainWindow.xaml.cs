@@ -34,47 +34,6 @@ namespace SolitaireGUI
             DataContext = new MainWindowVM();
         }
 
-        private void MainStack_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            void SetDefault()
-            {
-                Image image = new Image();
-                Thickness margin = image.Margin;
-                margin.Left = 12;
-                margin.Top = 20;
-                image.Margin = margin;
-                MainStack.Children.Clear();
-                MainStack.Children.Add(image);
-            }
-            LightStack<Card> stack = MainStack.DataContext as LightStack<Card>;
-            MainStack.Children.Clear();
-            if (stack == null)
-            {
-                MainStack.Children.Clear();
-            }
-            else
-            {
-                foreach (Card element in stack.GetReversedVersion())
-                {
-                    if (MainStack.Children.Count == 0)
-                    {
-                        SetDefault();
-                        (MainStack.Children[0] as Image).Source = GetBitmap(element);
-                    }
-                    else
-                    {
-                        Image image = new Image();
-                        image.Source = GetBitmap(element);
-                        Thickness margin = image.Margin;
-                        margin.Left = -35;
-                        margin.Top = 20;
-                        image.Margin = margin;
-                        MainStack.Children.Add(image);
-                    }
-                }
-            }
-        }
-
         private BitmapImage GetBitmap(string cardName)
         {
             return new BitmapImage(new Uri(String.Format("{0}\\{1}.png", CardManager.pathToCards, cardName), UriKind.Relative));
