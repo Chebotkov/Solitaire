@@ -45,33 +45,33 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="88*"></ColumnDefinition>
+            <ColumnDefinition Width="88*"></ColumnDefinition>
+            <ColumnDefinition Width="68*"></ColumnDefinition>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="88*"></ColumnDefinition>
+            <ColumnDefinition Width="88*"></ColumnDefinition>
+            <ColumnDefinition Width="88*"></ColumnDefinition>
+            <ColumnDefinition Width="89*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Menu VerticalAlignment="Top" Grid.ColumnSpan="7">
+        <Menu VerticalAlignment="Top" Grid.ColumnSpan="8">
             <MenuItem Header="Game">
                 <MenuItem Name="NewGameButton" Header="New Game" Command="{Binding NewGameCommand}" Click="NewGameButton_Click"></MenuItem>
                 <MenuItem Header="Exit" Click="MenuExitItem_Click"></MenuItem>
             </MenuItem>
         </Menu>
-        
-        <Image Name="BackGroundImage" Source="Resourses/background.jpg" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="7" Stretch="Fill" Style="{x:Null}"></Image>
-        <Button Grid.Row="1" Grid.Column="0" Margin="5 20 5 10" ClickMode="Press" Command="{Binding ShuffleMainStackCommand}">
+
+        <Image Name="BackGroundImage" Source="Resourses/background.jpg" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="8" Stretch="Fill" Style="{x:Null}"></Image>
+        <Button Grid.Row="1" Grid.Column="0" Margin="12,20,12,10" ClickMode="Press" Command="{Binding ShuffleMainListCommand}">
             <Image Name="DeckImage" Source="Resourses/card.jpg" Stretch="UniformToFill" Margin="0" Style="{x:Null}"></Image>
         </Button>
-        <StackPanel Name="MainStack" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <ItemsControl ItemsSource="{Binding MainStackPanel, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel Name="MainStack" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Orientation="Horizontal" DataContext="{Binding TempStackPanel, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="MainStack_DataContextChanged">
         </StackPanel>
-        <Image Name="FirstOutPutStack" Grid.Row="1" Grid.Column="3" Margin="0 20 0 0" DataContext="{Binding FirstOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="OutPutStack_DataContextChanged"></Image>
-        <Image Name="SecondOutPutStack" Grid.Row="1" Grid.Column="4" Margin="0 20 0 0"  DataContext="{Binding SecondOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="OutPutStack_DataContextChanged"></Image>
-        <Image Name="ThirdOutPutStack" Grid.Row="1" Grid.Column="5" Margin="0 20 0 0" DataContext="{Binding ThirdOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="OutPutStack_DataContextChanged"></Image>
-        <Image Name="FourthOutPutStack" Grid.Row="1" Grid.Column="6" Margin="0 20 0 0"  DataContext="{Binding FourthOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="OutPutStack_DataContextChanged"></Image>
+        <Image Name="FirstOutPutStack" Grid.Row="1" Grid.Column="4" Margin="12,20,12,0" DataContext="{Binding FirstOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="OutPutStack_DataContextChanged"></Image>
+        <Image Name="SecondOutPutStack" Grid.Row="1" Grid.Column="5" Margin="12,20,12,0"  DataContext="{Binding SecondOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="OutPutStack_DataContextChanged"></Image>
+        <Image Name="ThirdOutPutStack" Grid.Row="1" Grid.Column="6" Margin="12,20,12,0" DataContext="{Binding ThirdOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="OutPutStack_DataContextChanged"></Image>
+        <Image Name="FourthOutPutStack" Grid.Row="1" Grid.Column="7" Margin="12,20,13,0"  DataContext="{Binding FourthOutPutStack, UpdateSourceTrigger=PropertyChanged}" DataContextChanged="OutPutStack_DataContextChanged"></Image>
 
         <StackPanel Name="FirstAdditionalStack" Grid.Row="2" Grid.Column="0" DataContext="{Binding FirstAdditionalStack, UpdateSourceTrigger=PropertyChanged}">
             <Image Margin="0 20 0 0" ></Image>
@@ -81,23 +81,24 @@
             <Image Margin="0 20 0 0"></Image>
         </StackPanel>
 
-        <StackPanel Name="ThirdAdditionalStack" Grid.Row="2" Grid.Column="2" DataContext="{Binding ThirdAdditionalStack, UpdateSourceTrigger=PropertyChanged}">
+        <StackPanel Name="ThirdAdditionalStack" Grid.Row="2" Grid.Column="2" DataContext="{Binding ThirdAdditionalStack, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2">
             <Image Margin="0 20 0 0"></Image>
         </StackPanel>
 
-        <StackPanel Name="FourthAdditionalStack" Grid.Row="2" Grid.Column="3" DataContext="{Binding FourthAdditionalStack, UpdateSourceTrigger=PropertyChanged}">
+        <StackPanel Name="FourthAdditionalStack" Grid.Row="2" Grid.Column="4" DataContext="{Binding FourthAdditionalStack, UpdateSourceTrigger=PropertyChanged}">
             <Image Margin="0 20 0 0"></Image>
         </StackPanel>
 
-        <StackPanel Name="FifthAdditionalStack" Grid.Row="2" Grid.Column="4" DataContext="{Binding FifthAdditionalStack, UpdateSourceTrigger=PropertyChanged}">
+        <StackPanel Name="FifthAdditionalStack" Grid.Row="2" Grid.Column="5" DataContext="{Binding FifthAdditionalStack, UpdateSourceTrigger=PropertyChanged}">
+            <Image Margin="0 20 0 0"></Image>
+        </StackPanel>
+        
+        <StackPanel Name="SixthAdditionalStack" Grid.Row="2" Grid.Column="6" DataContext="{Binding SixthAdditionalStack, UpdateSourceTrigger=PropertyChanged}">
             <Image Margin="0 20 0 0"></Image>
         </StackPanel>
 
-        <StackPanel Name="SixthAdditionalStack" Grid.Row="2" Grid.Column="5" DataContext="{Binding SixthAdditionalStack, UpdateSourceTrigger=PropertyChanged}">
-            <Image Margin="0 20 0 0"></Image>
-        </StackPanel>
 
-        <StackPanel Name="SeventhAdditionalStack" Grid.Row="2" Grid.Column="6" DataContext="{Binding SeventhAdditionalStack, UpdateSourceTrigger=PropertyChanged}">
+        <StackPanel Name="SeventhAdditionalStack" Grid.Row="2" Grid.Column="7" DataContext="{Binding SeventhAdditionalStack, UpdateSourceTrigger=PropertyChanged}">
             <Image Margin="0 20 0 0"></Image>
         </StackPanel>
     </Grid>

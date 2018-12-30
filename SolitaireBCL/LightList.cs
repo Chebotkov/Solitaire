@@ -190,6 +190,28 @@ namespace SolitaireBCL
         }
 
         /// <summary>
+        /// Removes element by index.
+        /// </summary>
+        /// <param name="index">Index of the deleted element</param>
+        /// <returns>true - if element was removed, false - if wasn't.</returns>
+        public bool RemoveAt(int index)
+        {
+            var deleted = GetElementByIndex(index);
+
+            return Remove(deleted.Element);
+        }
+
+        /// <summary>
+        /// Clears list.
+        /// </summary>
+        public void Clear()
+        {
+            head = tail = null;
+            Count = 0;
+            //Dispose
+        }
+
+        /// <summary>
         /// Checks if list contains element.
         /// </summary>
         /// <param name="desiredElement">Desired elenment.</param>

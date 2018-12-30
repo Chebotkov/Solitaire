@@ -142,5 +142,36 @@ namespace SolitaireGUI
                 }
             }
         }
+
+        private void MainStack_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue is IEnumerable<UIElement>)
+            {
+                MainStack.Children.Clear();
+                foreach (UIElement element in (IEnumerable<UIElement>)e.NewValue)
+                {
+                    if (element is Image)
+                    {
+                        Image newChild = (Image)element;
+                        if (MainStack.Children.Count == 0)
+                        {
+                            Thickness margin = newChild.Margin;
+                            margin.Left = 12;
+                            margin.Top = 20;
+                            newChild.Margin = margin;
+                            MainStack.Children.Add(element);
+                        }
+                        else
+                        {
+                            Thickness margin = newChild.Margin;
+                            margin.Left = -35;
+                            margin.Top = 20;
+                            newChild.Margin = margin;
+                            MainStack.Children.Add(element);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

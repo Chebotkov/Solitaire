@@ -34,7 +34,7 @@ namespace SolitaireBCL
         }
     }
 
-    public class LightStack<T> : IEnumerable<T>, IDisposable, INotifyCollectionChanged where T : IEquatable<T>
+    public class LightStack<T> : IEnumerable<T>, IDisposable, INotifyCollectionChanged
     {
         #region Properties and variables
         private StackElement<T> current;
