@@ -21,7 +21,8 @@ namespace SolitaireGUI.ViewModel
         private int countOfCardsInMainStack = 3;
         private LightList<Card> mainList;
         private LightList<Card> tempList;
-        private LightStack<UIElement> tempStack;
+        private LightStack<Card> tempCardStack;
+        private LightStack<UIElement> tempStackPanel;
         //Add for each property current chosen value
         private LightStack<Card> firstOutPutStack;
         private LightStack<Card> secondOutPutStack;
@@ -39,7 +40,7 @@ namespace SolitaireGUI.ViewModel
         private int positionInMainDeck = -1;
         private BaseCommand newGameCommand;
         private BaseCommand shuffleMainListCommand;
- 
+
         #region Constructors
         static MainWindowVM()
         {
@@ -106,11 +107,23 @@ namespace SolitaireGUI.ViewModel
 
         public LightStack<UIElement> TempStackPanel
         {
-            get { return tempStack; }
+            get { return tempStackPanel; }
             set
             {
-                tempStack = value;
+                tempStackPanel = value;
+                TempStackPanel.CollectionChanged += TempStackPanel_CollectionChanged;
                 OnPropertyChanged(nameof(TempStackPanel));
+            }
+        }
+
+        public LightStack<Card> TempCardStack
+        {
+            get { return tempCardStack; }
+            set
+            {
+                tempCardStack = value;
+                TempCardStack.CollectionChanged += TempCardStack_CollectionChanged;
+                OnPropertyChanged(nameof(TempCardStack));
             }
         }
 
@@ -123,6 +136,7 @@ namespace SolitaireGUI.ViewModel
             set
             {
                 mainList = value;
+                MainList.CollectionChanged += MainList_CollectionChanged;
                 OnPropertyChanged(nameof(MainList));
             }
         }
@@ -323,8 +337,6 @@ namespace SolitaireGUI.ViewModel
             selectedCard = MainList.First;
             TempList = new LightList<Card>();
 
-            MainList.CollectionChanged += MainList_CollectionChanged;
-
             //Output Stacks Reset
             FirstOutPutStack = new LightStack<Card>();
             SecondOutPutStack = new LightStack<Card>();
@@ -333,7 +345,38 @@ namespace SolitaireGUI.ViewModel
 
             FirstOutPutStack.Push(new Card(CardSuit.Clovers, CardValue.Ace));
             ThirdOutPutStack.Push(new Card(CardSuit.Diamonds, CardValue.Five));
-            tempStack = new LightStack<UIElement>();
+            TempStackPanel = new LightStack<UIElement>();
+            TempCardStack = new LightStack<Card>();
+        }
+
+        private void TempStackPanel_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+            {
+                TempCardStack.Pop();
+            }
+        }
+
+        private void TempCardStack_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                var temp = TempStackPanel;
+
+                foreach (Card card in e.NewItems)
+                {
+                    Image image = new Image();
+                    image.Source = GetBitmap(card);
+                    temp.Push(image);
+                }
+
+                TempStackPanel = temp;
+            }
+
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+            {
+                RefreshTempStackPanel();
+            }
         }
 
         private void MainList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -341,18 +384,41 @@ namespace SolitaireGUI.ViewModel
             if (mainList.Count == 0 && positionInMainDeck > 0)
             {
                 MainList = TempList;
-                MainList.CollectionChanged += MainList_CollectionChanged;
                 TempList = new LightList<Card>();
                 positionInMainDeck = -1;
             }
         }
 
-        private void RefreshMainListPanel()
-        { 
-            LightStack<UIElement> tempStack = new LightStack<UIElement>();
-
-            if (TempStackPanel is null)
+        private void RefreshTempStackPanel()
+        {
+            if (TempCardStack.Count == 0)
             {
+                if (TempList != null && TempList.Count > 0 && MainList.Count != 0)
+                {
+                    var stack = new LightStack<Card>();
+                    int i = 0;
+                    int upBorder = TempList.Count > countOfCardsInMainStack ? countOfCardsInMainStack : TempList.Count;
+
+                    while (i < upBorder)
+                    {                        
+                        stack.Push(TempList.Last);
+                        TempList.Remove(TempList.Last);
+                        i++;
+                    }
+                    
+                    stack.Reverse();
+                    TempCardStack = stack;
+                }
+            }
+        }
+
+        private void RefreshMainListPanel()
+        {
+            var tempStack = new LightStack<Card>();
+
+            if (TempCardStack is null)
+            {
+                TempCardStack = new LightStack<Card>();
                 TempStackPanel = new LightStack<UIElement>();
             }
 
@@ -363,24 +429,33 @@ namespace SolitaireGUI.ViewModel
                     int i = 0;
                     int upBorder = MainList.Count > countOfCardsInMainStack ? countOfCardsInMainStack : MainList.Count;
 
+                    if (TempCardStack.Count > 0)
+                    {
+                        TempCardStack.Reverse();
+
+                        while (TempCardStack.Count >= 1)
+                        {
+                            TempList.Add(TempCardStack.Pop());
+                        }
+
+                        TempList.Add(TempCardStack.Peek());
+                    }
+
                     while (i < upBorder)
                     {
                         Card card = MainList.First;
                         TempList.Add(card);
                         positionInMainDeck++;
 
-                        Image image = new Image();
-                        Thickness margin = image.Margin;
-                        image.Source = GetBitmap(card);
-                        tempStack.Push(image);
-
                         MainList.Remove(card);
                         i++;
                     }
+
+                    TempCardStack.Pop();
                 }
             }
 
-            TempStackPanel = tempStack;
+            TempCardStack = tempStack;
         }
 
         private BitmapImage GetBitmap(string cardName)

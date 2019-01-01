@@ -92,7 +92,7 @@ namespace SolitaireBCL
                 current = new StackElement<T>(element, current);
             }
 
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, element));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, element));
             Count++;
         }
 
@@ -100,7 +100,7 @@ namespace SolitaireBCL
         {
             if (current is null)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Stack is empty");
             }
 
             T temp = current.Element;

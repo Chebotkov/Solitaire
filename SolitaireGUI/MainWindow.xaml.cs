@@ -69,6 +69,60 @@ namespace SolitaireGUI
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
+        }
+
+        private void Image_Drop(object sender, DragEventArgs e)
+        {
+            if (sender != null)
+            {
+                Image current = sender as Image;
+                if (current != null)
+                {
+                    Image card = e.Data.GetData(typeof(Image)) as Image;
+                    if (card != null)
+                    {
+                        FirstOutPutStack.Source = card.Source;
+                        StackPanel ParentStack = current.Parent as StackPanel;
+                        if (ParentStack != null)
+                        {
+                            var deleted = ((MainWindowVM)this.DataContext).TempStackPanel.Pop();
+                            ParentStack.Children.Remove(current);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void MainStack_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            MainStack.Children.Clear();
+            foreach (UIElement element in ((MainWindowVM)this.DataContext).TempStackPanel)
+            {
+                if (element is Image)
+                {
+                    Image newChild = (Image)element;
+                    if (MainStack.Children.Count == 0)
+                    {
+                        Thickness margin = newChild.Margin;
+                        margin.Left = 12;
+                        margin.Top = 20;
+                        newChild.Margin = margin;
+                        MainStack.Children.Add(element);
+                    }
+                    else
+                    {
+                        Thickness margin = newChild.Margin;
+                        margin.Left = -35;
+                        margin.Top = 20;
+                        newChild.Margin = margin;
+                        MainStack.Children.Add(element);
+                    }
+                }
+            }
+        }
+
+        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
+        {
             if (sender != null)
             {
                 Image current = sender as Image;
@@ -79,95 +133,13 @@ namespace SolitaireGUI
                     LightStack<Card> stack;
                     if (ParentStack != null)
                     {
-                        stack = ParentStack.DataContext as LightStack<Card>;
-                        if (ParentStack.Children.Count > 0 && stack != null && stack.Count > 0)
+                        switch (ParentStack.Name)
                         {
-                            card = stack.Pop();
-                            ParentStack.Children.Remove(ParentStack.Children[ParentStack.Children.Count - 1]);
-                            DragDrop.DoDragDrop(current, card, DragDropEffects.Move);
-                        }
-                    }
-                    else
-                    {
-                        if (current.Parent is Grid)
-                        {
-                            stack = current.DataContext as LightStack<Card>;
-                            if (stack is null)
-                            {
-                                current.Source = GetBitmap("EmptyBack");
-                            }
-                            else
-                            {
-                                if (stack.Count > 0)
+                            case "MainStack":
                                 {
-                                    card = stack.Pop();
-                                    if (stack.Count > 0)
-                                    {
-                                        current.Source = GetBitmap(stack.Peek());
-                                    }
-
-                                    DragDrop.DoDragDrop(current, card, DragDropEffects.Move);
+                                    DragDrop.DoDragDrop(current, current, DragDropEffects.Move);
+                                    break;
                                 }
-
-                                if (stack.Count == 0)
-                                {
-                                    current.Source = GetBitmap("EmptyBack");
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private void Image_Drop(object sender, DragEventArgs e)
-        {
-            if (sender != null)
-            {
-                Image current = sender as Image;
-                if (current != null)
-                {
-                    Card card = e.Data.GetData(typeof(Card)) as Card;
-                    if (card != null)
-                    {
-                        LightStack<Card> stack = current.DataContext as LightStack<Card>;
-                        if (stack is null)
-                        {
-                            stack = new LightStack<Card>();
-                        }
-
-                        stack.Push(card);
-                        current.Source = GetBitmap(card);
-                    }
-                }
-            }
-        }
-
-        private void MainStack_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue is IEnumerable<UIElement>)
-            {
-                MainStack.Children.Clear();
-                foreach (UIElement element in (IEnumerable<UIElement>)e.NewValue)
-                {
-                    if (element is Image)
-                    {
-                        Image newChild = (Image)element;
-                        if (MainStack.Children.Count == 0)
-                        {
-                            Thickness margin = newChild.Margin;
-                            margin.Left = 12;
-                            margin.Top = 20;
-                            newChild.Margin = margin;
-                            MainStack.Children.Add(element);
-                        }
-                        else
-                        {
-                            Thickness margin = newChild.Margin;
-                            margin.Left = -35;
-                            margin.Top = 20;
-                            newChild.Margin = margin;
-                            MainStack.Children.Add(element);
                         }
                     }
                 }
